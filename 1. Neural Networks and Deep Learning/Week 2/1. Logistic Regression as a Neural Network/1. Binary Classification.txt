@@ -1,0 +1,3 @@
+We will cover basics of neural network programming like vectorization and the intuition of organizing computation of a neural network in the form of a forward pass, or foward propagration, and a backward pass, or backpropagation through logistic regression.
+
+Lets take an example of a binary classification problem. You have an input for the image, and you want to recognize that image as, for example, a cat, in which case you output 1, or not a cat, in which case you output 0
