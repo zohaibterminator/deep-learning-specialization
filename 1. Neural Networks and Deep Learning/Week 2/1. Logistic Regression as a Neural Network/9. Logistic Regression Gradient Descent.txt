@@ -1,0 +1,78 @@
+We will now talk about how to compute derivatives to implement gradient descent for logistic regression. We will compute the derivatives through a computation graph.
+
+Prediction:
+z = w.T * x + b
+ŷ = a = σ(z) = 1/(1 + e^(-z))
+
+Loss function:
+L(a, y) = -(y*logŷ + (1-y)log(1-ŷ))
+
+Cost function:
+J(w, b) = 1/m * sum(L(ŷ, y)) = -1/m sum(y*logŷ + (1-y)log(1-ŷ))
+
+Lets say we only have 2 features, X_1 and X_2. The derivative is calculated as follows. You can follow along with the image of the computation graph of logistic regression.
+
+Derivation of 
+dL/dz
+
+If you’re curious, here is the derivation for 
+dL/dz = a−y
+
+Note that in this part of the course, Andrew refers to 
+dL/dz as dz.
+
+By the chain rule: 
+dL/dz = (dL/da)(da/dz)
+
+We’ll do the following: 1. solve for dL/da, then
+
+Step 1: dL/da
+L = −(ylog(a) + (1−y)log(1−a))
+dL/da = −y(1/a) − (1−y)(1/(1−a))(−1)
+
+We’re taking the derivative with respect to a. Remember that there is an additional −1 in the last term when we take the derivative of (1−a) with respect to a (remember the Chain Rule). Also note that the notational conventions are different in the ML world than the math world: here log always means the natural log.
+
+dL/da = −y/a + (1−y)/(1−a)
+
+We’ll give both terms the same denominator:
+dL/da = (−y(1−a))/(a(1−a)) + (a(1−y))/(a(1−a))
+
+Clean up the terms:
+dL/da = (−y + ay + a −ay)/(a(1−a))
+
+So now we have:
+dL/da = (a−y)/(a(1−a))
+
+Step 2: da/dz
+
+da/dz = dσ(z)/dz
+
+The derivative of a sigmoid has the form:
+dσ(z)/dz = σ(z)×(1−σ(z))
+
+You can look up why this derivation is of this form. For example, google “derivative of a sigmoid”, and you can see the derivation in detail.
+
+Recall that σ(z)=a, because we defined “a”, the activation, as the output of the sigmoid activation function.
+
+So we can substitute into the formula to get:
+da/dz = a(1−a)
+
+Step 3: dL/dz
+
+We’ll multiply step 1 and step 2 to get the result.
+dL/dz= dL/da × da/dz
+
+From step 1: dL/da = (a−y)/(a(1−a))
+From step 2: da/dz = a(1−a)
+
+dL/dz = (a−y/a(1−a)) × a(1−a)
+
+Notice that we can cancel factors to get this:
+dL/dz = a−y
+
+In Andrew’s notation, he’s referring to 
+dL/dz as dz.
+
+So in the videos:
+
+dz = a−y

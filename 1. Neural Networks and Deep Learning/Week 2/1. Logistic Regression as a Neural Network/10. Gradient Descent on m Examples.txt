@@ -1,0 +1,19 @@
+We have calculated derivatives for 1 example of logistic regression, but now we will calculate for m examples.
+
+Prediction:
+z = w.T * x + b
+ŷ = a = σ(z) = 1/(1 + e^(-z))
+
+Loss function:
+L(a, y) = -(y*logŷ + (1-y)log(1-ŷ))
+
+Cost function:
+J(w, b) = 1/m * sum(L(ŷ, y)) = -1/m sum(y*logŷ + (1-y)log(1-ŷ))
+
+We will first initialize J=0, dw_1=0, dw_2=0, db=0. We will use them as accumulators, J will represent the cost of the entire training iteration, dw_1 will represent the dJ/dw_1 over the entire dataset, and similarly for dw_2 and db. Also, note that there are 2 w, and therefore, 2 dws because there are 2 features, X_1 and X_2 (n=2). After calculating the derivatives, we will use them to update the parameters like this:
+
+w_1 = w_1 - α*dw_1
+w_2 = w_2 - α*dw_2
+b = b - α*db
+
+This is one step of gradient descent. Now, there are some problems with this implementation, firstly, you will have to use 2 for loops, one for iterating over m examples, and the second one for iterating over n features. Right now, we only used 2 features, so we just made 2 variables, and just write the derivative calculation step two times for two features, but if you had 10 features, you won't write 10 lines for calculating the derivatives, you would use a for loop. This makes the algorithm less efficient. In the era of big datasets, not using explicit for loops is really important and will help you scale to much bigger datasets. We will use a technique called vectorization that will help you get rid of these explicit for-loops in your code.

@@ -7,3 +7,7 @@ Cost function:
 J(w, b) = 1/m * sum(L(ŷ, y)) = -1/m sum(y*logŷ + (1-y)log(1-ŷ))
 
 We need to find parameters w and b that minimizes the cost function J(w, b). We will first initialize our parameters woth some values, and, for logistic regression, any initialization method works. Usually, you initialize the parameters to 0, you can also assign random values to parameters as well. Since the cost function is convex, you will reach the same point no matter where you initialize the parameters.
+
+When updating the parameters, we calculate the partial derivatives of the cost function with respect to w and b seperately, and then update the parameter using their respective partial derivatives combined with learning rate.
+
+Just one note regarding the calculas, the derivative is called partial derivative, when the function depends on two or more variables, but you are calculating the derivative with respect to a single variable, which is what we are doing here.

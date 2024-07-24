@@ -1,0 +1,9 @@
+The computations in a NN are organized in the form of a forward pass, also called a forward propagation step in which we calculate the output of the NN, and a backward pass, also called backward propagation in which we compute the gradients or derivatives. The computation graph explains why it is organized this way.
+
+Lets say we are computing a simple function J(a, b, c) that depends on the three variables, a, b and c. And lets say that function is:
+
+J(a, b, c) = 3(a + b*c)
+
+Computing this function has three distinct steps, firstly, you have to compute b*c, and lets say we store that in a variable u, so u = b*c. Then you may compute v, which a + u, then the output J is 3 * v. The computation that will be drawn is in the image "Computation graph example". Suppose the values of a, b and c are 5, 3 and 2 respectively. So that means, u will be 6, v will be 11, then finally, J will be 33.
+
+The computation graphs comes in handy when there is a output variable we want to optimize, and in the case of the logistic regression, J is the cost function that we are trying to minimize. So, in order to compute the value of J there is a left to right pass, and in order to compute derivatives, there is a right to left pass.
