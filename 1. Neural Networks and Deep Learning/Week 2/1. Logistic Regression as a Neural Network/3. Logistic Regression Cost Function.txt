@@ -1,0 +1,27 @@
+To train the parameters of the logistic regression model you need to define a cost function.
+
+This is what we defined previously:
+
+ŷ = σ(w.T * x + b), where σ(z) = 1/(1 + e^(-z))
+
+Next, we will define a loss/error function which we will use to optimize our parameters. We won't use the MSE function which we used for Linear Regression, because it will make the optimization problem non-convex, and we will end up with a local optima problem. So gradient descent will just keep getting stuck in a local optima.
+
+The loss function we use in logistic regression is called "Binary cross-entropy" function, whose equation is:
+
+L(ŷ, y) = -(y*logŷ) + ((1-y)log(1-ŷ))
+
+When we were using the MSE function, we wanted the squared error to be small as possible, here the loss function also want this to be small as possible. Lets look at 2 cases to understand it a bit more:
+
+1. If y=1, then L(ŷ, y) = -logŷ, then you want logŷ to be large, which means you want ŷ to be large so that it can be closer to 1, making the difference very small.
+
+2. If y=0, then L(ŷ, y) = -log(1-ŷ), then you want log(1-ŷ) to be large, which means that you want ŷ to be small
+
+Now we will define the Cost function J, which will be applied to parameters w and b, which will be:
+
+J(w, b) = 1/m * sum(L(ŷ, y))
+
+or 
+
+J(w, b) = -1/m sum(y*logŷ + (1-y)log(1-ŷ))
+
+The difference between the cost function and loss function is that the loss function computes the error for a single training example while the cost function is the average of the loss functions of the entire training set.

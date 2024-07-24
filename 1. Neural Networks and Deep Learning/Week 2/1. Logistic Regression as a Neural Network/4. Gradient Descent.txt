@@ -1,0 +1,9 @@
+We will now see how parameters are trained with Gradient Descent.
+
+Prediction:
+ŷ = σ(w.T * x + b), where σ(z) = 1/(1 + e^(-z))
+
+Cost function:
+J(w, b) = 1/m * sum(L(ŷ, y)) = -1/m sum(y*logŷ + (1-y)log(1-ŷ))
+
+We need to find parameters w and b that minimizes the cost function J(w, b). We will first initialize our parameters woth some values, and, for logistic regression, any initialization method works. Usually, you initialize the parameters to 0, you can also assign random values to parameters as well. Since the cost function is convex, you will reach the same point no matter where you initialize the parameters.

@@ -1,0 +1,11 @@
+Logistic regression is a learning algorithm that you use in binary classification problems in supervised learning or when you are dealing with labeled data.
+
+Given an input x, maybe features of an image that you want to classify as a cat picture or not, you want the algorithm to predict a prediction ŷ, which is your estimate for true label y. Formally, ŷ is the probability of the y to 1 given the input features x (P(y = 1 | x))
+
+Since, the features x is a n_x dimensional vector, the parameters of logistic regression will also be a n_x dimensional vector, with b, which is just a real number. So, given the features x and parameters w and b, we want to predict ŷ. One thing we could try to do, which is wrong, is just do w.T * x + b, meaning just take the dot product between the parameter w and feature vector x, and add the bias b. But, this is what you would do when you were applying linear regression. But LR is not a good algorithm for binary classification because you want the prediction ŷ to be the chance of feature x to be y=1, so the value that the model should give us should be between 0 and 1. But here, that can be much bigger then 1 and can also be negative.
+
+So, what we will do is that we will pass the output of the w.T * x + b output through a sigmoid function, which will map the output of our model between 0 and 1. If you look at the sigmoid function, you will see that it goes smoothly from 0 to 1, intersecting with 0.5 on the y axis. We will represent w.T * x + b with z, and sigmoid function as σ(z). The formula for z is as follows:
+
+σ(z) = 1/(1 + e^(-z))
+
+Somethinh to notice is that if the value of z is very large, σ(z) will be closer to 1. And conversely, if the value of z is very small, σ(z) will also be closer to 0. Another note on notation, sometimes both the parameters is written as one parameter theta as one big vector, with theta_0 being the bias, and the rest of theta values being the weights. We will not use that notation and we will keep both the parameters seperate.
