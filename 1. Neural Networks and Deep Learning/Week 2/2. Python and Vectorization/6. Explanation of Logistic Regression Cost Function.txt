@@ -1,0 +1,15 @@
+We will now look at the justification for using a different cost function for logistic regression.
+
+Prediction:
+ŷ = σ(w.T * x + b), where σ(z) = 1/(1 + e^(-z))
+
+Cost function:
+J(w, b) = 1/m * sum(L(ŷ, y)) = -1/m sum(y*logŷ + (1-y)log(1-ŷ))
+
+We use the negative sign to tell that we want to minimize the loss, but maximize the log function.
+
+In statistics, there is a concept called maximum likelihood estimation, in which we try to estimate the value of parameters that gives us the maximum of the expression. So, in this case, we are maximizing the negative of the Loss function by finding or estimating the parameters that gives us the required result. So, now, when we want to minimize the cost of the model, we remove the negative sign and write the cost of the model like this:
+
+J(w, b) = 1/m * Σ L(ŷ, y)
+
+So, we are carrying out maximum likelihood estimation with the logistic regression model under the assumption that the examples are identically independently distributed.

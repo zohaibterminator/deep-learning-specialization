@@ -1,0 +1,10 @@
+We will now look at calculating gradients for backpropagation step for all m training examples.
+
+So, dz = a - y. For training example 1, it will be dz^(1) = a^(1) - y^(1), then for training example 2, it will be dz^(2) = a^(2) - y^(2), and so on.
+
+To calculate dz for all m examples, we will make a vector of size (1, m) of the activations a and target label y, and then just perform a - y and assign to dz. It will calculate dz for all m training examples. For calculating db and dw, we were also using the for loop. So, to vectorize them, db will be calculated using the np.sum(dz), and dw will just be calculated using X * dz.T. Both of them will also be multiplied by 1/m. The update of w and b will just be:
+
+w = w - α*dw
+b = b - α*db
+
+Note, that for all m iterations, you will have to implement an explicit for loop, its just that for single iteration of back propagation and forward propagation, you can just use this for faster calculations. The results will still be miles better with 1 for loop and vectorization vs 2 for loops.

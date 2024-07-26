@@ -1,0 +1,9 @@
+Now we will apply vectorization on logistic regression, so we can process the entire training set without using a single for loop. We will first look at the forward propagation step.
+
+We will take the feature vector X, and calculate the dot product with the transpose of w, so the implementation will look like this:
+
+[z_1, z_2, z_3] = w.T * X + [b_1, b_2, b_3]
+[z_1, z_2, z_3] = [w_1.T*X_1, w_2.T*X_2, w_3.T*X_3] + [b_1, b_2, b_3]
+[z_1, z_2, z_3] = [w_1.T*X_1 + b_1, w_2.T*X_2 + b_2, w_3.T*X_3 + b_3]
+
+Note that, b is just a single number here. When adding it into a numpy array like this, NumPy will "broadcast" b and make it a (1, m) row vector, and then it will add it in. For a, we will just use sigmoid function, and it will efficiently calculate the results. More on this in the programming assignment.
