@@ -1,0 +1,27 @@
+When you build a NN, one of the choices you will have to make is what activation function to use in the hidden layers as well as the output units of your NN.We are using sigmoid function till now, but there are other choices that works way better.
+
+An activation function that almost always works better then a sigmoid function is the tanh or hyperbolic tangent function. It has almost the exact shape as the sigmoid function, but instead of mapping numbers to a range between 0 and 1, it maps the numbers into the range -1 and 1 and passes through the origin instead of 0.5. The formula for the tanh function is:
+
+tanh(z) = (e^z - e^-z) / (e^z + e^-z)
+
+And it turns out that for hidden units, if you use tanh(z), this almost always works better than the sigmoid function because with values between plus one and minus one, the mean of the activations that come out of your hidden layer are closer to having a zero mean. So sometimes when you train a learning algorithm, you might center the data and have your data have zero mean, using a tanh instead of a sigmoid function kind of has the effect of centering your data so that the mean of your data is close to zero rather than maybe 0.5. And this actually makes learning for the next layer a little bit easier. We will look into it a bit more in the second course. But, the main point is, never use sigmoid as tanh is almost always strictly superior, except of maybe in the output layer, because if the outputs should be either 0 or 1 (binary classification), then it makes sense to output a number that is between 0 and 1 in order to understand the prediction of the NN easier.
+
+But, the disadvantage of both tanh or sigmoid is that if the output z is very small, the gradient becomes very small as well, so the learning is very slow as well. So, another activation function is used which is called ReLU function, whose formula is:
+
+a = max(0, z)
+
+So the derivative of the slope is positive if z is greater then 0, and negative if z is less then 0, so technically for z=0, the derivative is not well defined, but when you implement this in the computer, the chance that you get an answer that is exactly 0 is very small.
+
+Heres a rule of thumb when selecting activation functions:
+
+1. If your output is a 0 or 1 value or you are tackling a binary classification problem, use sigmoid function.
+
+2. Then for all other hidden units, if you are not sure about what activation function to use, just use ReLU.
+
+The downside of ReLU is that if z is less then 0, the derivative is negative (although in practice there can be hidden units that produces z that is greater than 0, so learning will still be quite fast) but there is a variant of ReLU, called Leaky ReLU, that instead of the slope being completely 0 if z is less then 0, it takes a slight slope downwards. It usually works better then ReLU but is not used that much in practice. Either one should be fine. The formula for Leaky ReLU is:
+
+a = max(0.01 * z, z)
+
+Usually, people make the 0.01 value a parameter that you can change, so you can do that as well if you feel like it.
+
+The best way to pick the activation function would be to test them all and then see which of the choices perform well on the cv and test sets.
