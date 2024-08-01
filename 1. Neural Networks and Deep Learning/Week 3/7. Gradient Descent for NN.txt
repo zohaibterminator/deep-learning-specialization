@@ -1,0 +1,50 @@
+Now we wil discuss how to implement GD for NN with 1 hidden layer.
+
+Suppose:
+
+Number of features = n_x = n^[0]
+Number of units in hidden layer = n^[1]
+Number of units in the output layer = n^[2]
+
+Therefore the dimensions of parameters will be:
+
+W^[1] = (n^[1], n^[0])
+b^[1] = (n^[1], 1)
+
+W^[2] = (n^[2], n^[1])
+b^[2] = (n^[2], 1)
+
+The cost function J(W^[1], b^[1], W^[2], b^[2]) is:
+
+1/m sum(L(yhat, y))
+
+We will the initialize the parameters, not by zero, but with some random number, and the rest of the GD steps are the same as before:
+
+Repeat {
+    compute prediction for m training examples
+
+    compute derivatives dW^[1], db^[1] and so on
+
+    Update the parameters:
+        W^[1] = W^[1] - alpha*dW^[1]
+        b^[1] = b^[1] - alpha*b^[1]
+        .
+        .
+}
+
+They key here is to compute the partial derivatives. So we will now look at the equations of the derivatives for now, and go in-depth about how we came up with the formulas in the next section. First we will look at the derivatives of the output layer.
+
+dZ^[2] = A^[2] - Y, where Y is a (1, m) matrix
+dW^[2] = 1/m dZ^[1] * A^[1].T
+db^[2] = 1/m np.sum(dZ^[2], axis=1, keepdims=True)
+
+This is a Python NumPy function that calculates sum across 1 dimension of a matrix, and keepdims will prevent Python from returning the rank one arrays of dimension (n^[2],), and instead return a vector of (n^[2], 1) dimension.
+
+Now we will compute the derivatives of the hidden layer:
+
+dZ^[1] = W^[2].T*dZ^[2] * g^[1]'(Z^[1]) 
+
+g' is the derivative of whatever activation function you are using in the hidden layer. Also, since W^[2].T*dZ^[2] and g^[1]'(Z^[1]) are (n^[1], m) matrices, we will perform element wise product.
+
+dW^[1] = 1/m dZ^[1] * X.T
+db^[1] = 1/m np.sum(dZ^[1], axis=1, keepdims=True)

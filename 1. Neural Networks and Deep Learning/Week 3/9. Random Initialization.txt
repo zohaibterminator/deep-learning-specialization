@@ -1,0 +1,14 @@
+For logistic regression, if you initalize the weights to zero and then apply GD, it will work fine but not in the case of NN.
+
+Lets say you have 2 input features, and a NN with 1 hidden layer with 2 units and an output layer with 1 unit. Let's say that you initialize W^[1] to all 0s, so a two-by-two matrix with all zeros. And let's say b^[1] is also equal to [0 0]. It turns out initializing the bias terms b to 0 is actually okay, but initializing W to all 0s is a problem. So the problem with this formalization is that for any example you give it, you'll have that a_1^[1] and a_2^[1], will be equal, right?, because both of these hidden units are computing exactly the same function. And then, when you compute backpropagation, it turns out that dz_1^[1] and dz_2^[1] will also be the same colored by symmetry, right? Both of these hidden units will initialize the same way. Technically, for what I'm saying, I'm assuming that the outgoing weights are also identical. So that's W^[2] is equal to [0 0]. But if you initialize the neural network this way, then both the hidden units are identical. Sometimes you say they're completely symmetric, which just means that they're completing exactly the same function. And by kind of a proof by induction, it turns out that after every single iteration of training your two hidden units are still computing exactly the same function. Since plots will show that dw will be a matrix where every row takes on the same value. So when you perform a weight update, W^[1] gets updated as W^[1] - alpha times dw. You find that W^[1], after every iteration, will have the first row equal to the second row. So, if you prove by induction that after the first iteration it is true that both hidden units are calculating the same function, you can also prove the same after each future iteration as well. So there is no point to having more then 1 hidden unit.
+
+The solution to this is randomly initializing your units like this:
+
+W^[1] = np.random.randn((2, 2))
+
+This will generate numbers that are part of the gaussian or normal distribution. And also usually you multiply it with a very small number like 0.01. You do that because you wont want the W to be very large, because that will make the z larger, which will make learning slow if you are using tanh or sigmoid function as your activation function. This is less of an issue with other activation functions like ReLU but if you are doing binary classification you will use sigmoid function.
+
+W^[1] = np.random.randn((2, 2)) * 0.01
+b^[1] = np.zeros((2, 1))
+W^[1] = np.random.randn((1, 2)) * 0.01
+b^[1] = 0
