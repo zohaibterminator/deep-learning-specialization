@@ -1,0 +1,6 @@
+Forward propagation in the deep neural networks is similar to the forward propagation in the shallow neural network, just with additional notations for each layer. Here are the general notations for the forward propagation:
+
+z^[l] = w^[l] * a^[l-1] + b^[l]
+a^[l] = g^[l](z^[l])
+
+For the vectorized implementation, all the examples will be stacked horizontally to form Z^[l], W^[l], and A^[l]. And additionally, a for loop will be needed to iterate through the number of layers from 1 to l.

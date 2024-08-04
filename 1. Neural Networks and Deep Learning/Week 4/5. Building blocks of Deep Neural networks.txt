@@ -1,0 +1,1 @@
+The functions of forward and backward prop are the same, but for the backward propagation step, you will "cache" or store the value of Z^[l], which will then be used by the backward propagation function. In practice, it is useful to cache W^[l] and b^[l] as well.

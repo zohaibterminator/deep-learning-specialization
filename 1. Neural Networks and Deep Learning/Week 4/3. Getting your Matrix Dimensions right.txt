@@ -1,0 +1,13 @@
+For bug-free implementation of a neural network, it is important to get your matrix dimensions right. Lets say you are dealing with a neural network with 5 hidden layers with each layer having 3, 5, 4, 2, and 1 neurons repectively. Lets look at only 1 example, so say X is a (2, 1) vector. So n^[0] is therefore 2. Now lets look at layer 1.
+
+Layer 1 has 3 neurons, which will be denoted by n^[1]. This also means that the dimensions of the Z^[l] will be (3, 1). Since X will be (2, m), the W should be a matrix of (3, 2) dimensions. This means that the dimension of W will be (n^[1], n^[0]). Using this, we can create a general expected dimensions of the W matrix of layer l:
+
+W^[l].shape = (n^[l], n^[l-1])
+
+Now lets look at dimensions of vector b. Since Z^[l], which is the product of W^[l] and X, will be a (3, 1) vector, if we want to add a vector to it, it has to have the same dimensions. So therefore b^[1] will be a (3, 1) vector. So, generally, we can say.
+
+b^[l].shape = (n^[l], 1)
+
+If you are implementing backpropagation, same will apply to dW^[l] and db^[l].
+
+But some of it will change for the vectorized implementation. The dimensions of W, b, dW and db will remain the same, but the dimension of X and Z, and therefore A, will change. Since X will now have (2, m) dimensions, the product of X and W^[1] will now be a (n^[1], m) matrix or (3, m) matrix. The dimensions of b will remain the same, because due to python broadcasting, it will be duplicated to a matrix of (n^[1], m) dimensions before being added to Z^[1]. Similar to dW^[l] and db^[l], dZ^[l] and dA^[l] will be of the same dimensions as Z^[l] and A^[l].
