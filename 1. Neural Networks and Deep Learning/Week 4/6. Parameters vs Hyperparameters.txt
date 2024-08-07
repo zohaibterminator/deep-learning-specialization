@@ -1,0 +1,3 @@
+Parameters of a DL model are W and b. But there are other things you would have to tell your Dl model like the learning rate, which determines how your parameters evolve, number of iterations, number of hidden layers, number of hidden units in a hidden layer. Choice of activation functions can also be viewed as a hyperparameter. All of these parameters, control the actual parameters W and b, so we call them hyperparameters.
+
+Applied DL nowadays is a very emphirical process, you decide on an idea and a set of parameters and hyperparameters, for example you set alpga to 0.01, then you code it out, then try it and then decide that maybe I want the learning rate to be 0.05, then repeat the cycle.
