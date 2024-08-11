@@ -1,0 +1,15 @@
+Even though L2 regularization is widely used, Dropout regularization is another way to apply regularization to the neural network.
+
+In dropout, we will set a probability of elimination a node in a nerual network. Lets say you set the probability to 0.5, this means that, there is 50 percent chance a node is "turned off" or its output be set to 0. There are a few ways to implement dropout.
+
+The first method is "Inverted Dropout". Lets say we are implementing dropout for layer 3. We will first make a new variable d3, which we will initialize randomly. It will also have the same dimensions as a^[3]:
+
+d3 = np.randn.rand(a3.shape[0], a3.shape[1]) < keep_prob
+
+Then we will see if it is less then some number keep_prob. This keep_prob number is actually the probability of keeping the node. So if keep_prob is 0.8, there is, therefore, a 20 percent chance of eliminating a node. Next, we will do is multiply the activations of the 3rd layer, with the d3.
+
+a3 = np.multiply(a3, d3)
+
+Since after applying the condition with the keep_probs, the elements in d3 will either be 1, indicating that the number was greater then keep_prob, and 0, indicating that the number was less than keep_prob. Then we will finally divide, or scale, the values of a3 by keep_prob. We do the final step is because, lets say you have 50 units, and if you set the value of keep_prob to 0.8, 20 percent of the units will be 0, meaning 10 nodes will be 0. So, in order to keep the expected value of a3 same, we scale down the value of a3, which will allow us to recoup some of the outputs lost.
+
+At test time however, we dont apply dropout, because we dont want our output to be random. There were some implementations of dropout regularization that didnt scale the activations but then added some scaling parameter at test time, but we dont have to do that here.

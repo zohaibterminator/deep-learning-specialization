@@ -1,0 +1,7 @@
+In the ML era, there was a lot of talk about the Bias-Variance tradeoff, but in the DL era, the Bias and Variance is still there, but there is less of a tradeoff between the two.
+
+In 2 dimensional data, you can plot the data and see how well your model is doing by plotting the decision boundary. But in high dimensional data, it is not easy to visualize such a thing. Continuouing with our cat image classification, we can look at two key values for understanding bias and variance will be the test set error and the dev set error. For example you get 1% error, meaning your model incorrectly identified 1% of the pictures in the training set, but you get 11% error in the test set. This means that your model is not doing a good job of generalizing to new data, and is overfitting. This means that your model has high variance.
+
+Lets say you train another NN on the training set, and get a 15% error, and on the dev set you get a 16% error. This may be okay, but if you ask a human to classify the images, they may classify all images correctly and their error may be close to 0. So now when you compare the train error to the human error, there is a huge difference. So, this looks like that the model is underfitting the data. You can also say that the model has high bias.
+
+But of course all of this depends on the human error, which is also called the optimal or Bayes error. If the human error was 15%, then even the 2nd model would have been considered okay since the difference between training error and dev error, and training error and human error, was small.

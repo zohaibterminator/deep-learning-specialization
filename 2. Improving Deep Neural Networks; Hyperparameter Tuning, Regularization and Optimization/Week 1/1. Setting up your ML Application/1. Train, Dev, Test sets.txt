@@ -1,0 +1,19 @@
+Making good choices for how to set up your training, development and test sets can make a huge difference in helping you quickly find a good high-performance neural network.
+
+In practice, applied ML is a highly iterative process, because when you are starting out to solve a problem, you dont know the right answers for many questions like how many layers should the NN have, how many hidden units should the NN have, what should the learning rate be, what activation functions to use, etc. And to find the right answers for these questions on the first try is nearly impossible. So the general ML development process will look like this:
+
+1. You usually start with an idea, such as you want to build a neura network of a certain number of layers, a certain number of hidden units and so on.
+
+2. Then you code the idea of the NN you formed in the first step.
+
+3. You then run it or experiment it and see how well it performed. And then based on the results you go back to the first step and refine your original idea.
+
+You can keep iterating, to find better and better configurations of a NN. One of the things that determine how quickly you make progress is how efficiently you can go around this cycle, and setting up your datasets well in terms of train, development and test sets can make you more efficient in that.
+
+So you how you do that is you divide your datasets into 3 portions the train set, hold-out/cross-validation/development set or "dev" set and the test set. The workflow is that you train your model on the training set, then see which of the many models perform best on your dev set. Then after doing this for long enough, you take your best model and evaluate how it does on the test set.
+
+In the earlier days of ML, splits like 70/30 or 60/20/20 percent splits were widely used and worked well for datasets with 1000, 10000 examples. But in the big data era, where you will have datasets with more than 1000000 examples, the dev and test sets become smaller and smaller percentages of the dataset. Because the role of the dev set are that you want to just quickly evaluate which of your 2 or 10 different models are performing well, and you might not need 20 percent or 20000 examples to do that. So for example if you have 1000000 examples in your dataset, you may decide that 10000 examples are enough for the dev set. Similarly, the role of the test set is to see a pretty confident estimate of how well your NN is doing, so it also doesnt need to be 20 percent of your dataset with millions of examples.
+
+One another trend we are seeing in the modern era is more and more people are training NN on mismatched training and test set distributions. For example, maybe you have an application that lets user upload a lot images, and the goal is to find cat pictures of cats to show your users. So, maybe you are training you NN on cat pictures from the internet, but you are testing the NN on cat pictures from your users. One guideline you should follow is that you have to make sure that both the train and test sets come from the same distribution.
+
+Finally, it is okay to not have a test set, and only have the dev set. The goal of the test set is to give an unbiased estimate of your final network. But if you dont need that unbiased estimate, then it might be okay to not have a test set.

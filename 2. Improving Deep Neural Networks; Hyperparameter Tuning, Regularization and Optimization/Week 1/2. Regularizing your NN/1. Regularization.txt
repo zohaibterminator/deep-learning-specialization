@@ -1,0 +1,39 @@
+If you suspect you have a high-variance problem, the first thing you should try is probably regularization. The other way to reduce high variance, which is to get more training data, but its not always possible to get more data.
+
+Lets understand this using logistic regression. The cost function of logistic regression was as follows:
+
+J(w, b) = 1/m sum(L(yhat^(i), y^(i)))
+
+To regularize the model, we will just add the L2 norm of W to the cost function:
+
+J(w, b) = 1/m sum(L(yhat^(i), y^(i))) + λ/2m * sum(w_j ** 2)
+
+We dont usually add the regularization term for b, because it doesnt make a lot of difference, however you can if you want.
+
+λ is the regularization parameter, you set this using the dev set. So you train a NN on a lot different values of λ, and then choose the best that gives you the best result. The normal values of λ is between 1-10. You can go higher than that but you normally want to put a small penalty. λ is another parameter that you might have to tune.
+
+Well, this was regularization for logistic regression, what about the NN. Well, for a NN, you will add something called the Frobenius norm, which is just the sum of squared values of the matrix. The formula is as follows:
+
+||W^[l]||^2 = Σ(i=1 to n^[l]) Σ(j=1 to n^[l-1]) (W_ij^[l]) ** 2
+
+You also add the regularization term λ/m * W^[l] to the dW^[l] as well.
+
+dW^[l] = (calculated using backprop) + λ/m * W^[l]
+W^[l] = W^[l] - alpha*dW^[l]
+
+
+The L2 regularization is also called Weight decay, because you are basically multiplying the W with the term (1 - alpha*λ/m)
+
+W^[l] = W^[l] - alpha*dW^[l]
+
+Putting in the value of dW^[l]
+
+W^[l] = W^[l] - alpha*((calculated using backprop) + λ/m * W^[l])
+
+W^[l] = W^[l] - alpha*(λ/m * W^[l]) - alpha*(calculated using backprop)
+
+Take W^[l] common
+
+W^[l] = W^[l] - alpha*λ/m - alphaW^[l] - alpha*(calculated using backprop)
+
+W^[l] = W^[l](1 - alpha*λ/m) - alpha*(calculated using backprop)

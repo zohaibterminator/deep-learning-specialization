@@ -1,0 +1,9 @@
+All the information about high bias and high variance allows you to more systematically go about improving your NN, which we will call the basic "recipe" for Machine Learning.
+
+After training the initial model, you will first see if the model is underfitting, or if the model has high bias. If the model is underfitting, you can make a bigger neural network like add more layers. You can also train the NN for longer or maybe you can also maybe try to find the different neural network architectures. The last one doesn't work as reliably, but the first 1 almost always improves performance. So you can keep doing this iteratively untill the high bias problem is gone.
+
+Once the bias is at an acceptable point, you can then see if the model has a high variance problem and whether the model is overfitting the data. If your model has high variance, you can then try to get more data. But that is not always possible, so you can also try adding regularization. And finally, searching for a more appropriate NN architecture also sometimes helps with the high variance problem as well.
+
+You can keep iterating this whole process until you have a model with low bias and low variance. If you have noticed, the subset you will do will change depending on whether you have a high variance problem or a high bias problem. Use your dev set to diagnose which problem you are facing, and then apply the appropriate techniques.
+
+In the pre-deep learning era, the term bias-variance tradeoff was used, because enough tool wasnt available that only reduced bias or only reduced variance. Back in those days, you have to tradeoff between the two, because reducing one would increase the other. But in the modern DL era, as long as you can keep making a bigger network, and you can keep getting more data (which is not always the case for both), you can use these techniques to reduce bias and variance reliably.
