@@ -1,0 +1,13 @@
+When you are implementing backprop, there is a tool called gradient checking that can help you make sure that your implementation of backprop is correct. Before we go straight to gradient checking, lets first learn about numerical approximation of gradients.
+
+Lets take the function f(θ) which is defined as:
+
+f(θ) = θ^3
+
+Lets start off with θ=1. So instead of increasing the θ to the right by a small amount epsilon ε (θ + ε), we will also decrease θ by a small amount ε (θ - ε). So (θ + ε) will be equal to 1.01, and (θ + ε) = 0.99, where ε = 0.01. So if plot the graph, you will see that instead of taking the height/width of the triangle formed between f(θ) and f(θ + ε) and the triangle of f(θ) and f(θ - ε), we take the triangle of f(θ + ε) and f(θ - ε) and calculate it's height/width.
+
+The height of the triangle will be f(θ + ε) - f(θ - ε), and the width will be 2ε. And this will give us a good approximation for g(θ).
+
+g(θ) ≈ (f(θ + ε) - f(θ - ε)) / 2ε
+
+So if you calculate the height/width of the triangle for θ=1 and ε=0.01, the result will be 3.0001. And if you calculate the actual value of f(θ) for θ=1, it will be 3. So the error is very minute, just 0.0001. If you had taken the one-sided difference, the error would be 0.0301 which would be bigger than the error we got from the two sided difference. If you use this method to do gradient checking, this turns out to run twice as slow as if you were to use a one-sided difference, but it's worth it to use it because it is very accurate.

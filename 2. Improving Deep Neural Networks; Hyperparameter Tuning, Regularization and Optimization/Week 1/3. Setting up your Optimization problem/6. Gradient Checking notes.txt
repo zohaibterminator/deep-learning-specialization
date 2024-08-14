@@ -1,0 +1,11 @@
+Lets take a look at some practical tips for grad checking.
+
+1. Don't use Grad check in training, only to debug.
+
+2. If algorithm fails the grad check, look at the specific dθapprox vectors to see which ones are different to the vectors of dθ.
+
+3. If you are using grad check, remember your regularization term.
+
+4. Grad check doesnt work with grad check, because random units are being turned off so the cost function is hard to compute. So what will you do in this case is turn off your dropout, then perform the grad check and then make sure the grad is being calculated correctly.
+
+5. It's not impossible that your implementation of gradient descent is correct when w and b are close to 0. As you run gradient descent and w and b become bigger, maybe your implementation of backprop is correct only when w and b is close to 0, but it gets more inaccurate when w and b become large. So one thing you could do, I don't do this very often, but one thing you could do is run grad check at random initialization and then train the network for a while so that w and b have some time to wander away from 0, from your small random initial values. And then run grad check again after you've trained for some number of iterations.

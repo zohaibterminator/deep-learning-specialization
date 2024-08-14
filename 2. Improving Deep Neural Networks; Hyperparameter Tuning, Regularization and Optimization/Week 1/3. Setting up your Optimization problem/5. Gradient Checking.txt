@@ -1,0 +1,13 @@
+First thing you are going to do to perform gradient checking is to take W^[1], b^[1],...,W^[l], b^[l] and reshape them into a giant vector θ. So now, the cost function becomes the function θ. Similarly, take your derivatives dW^[1], db^[1],...,dW^[l], db^[l], and make a giant vector dθ, which is of the same dimension as θ.
+
+Since now the cost function J is the function θ:
+
+J(θ) = J(θ_1, θ_2,...,θ_l)
+
+Now to implement gradient checking, we will define a for loop, which will, for each vector θ_i calculate dθapprox[i] using the same two-sided difference formula we saw in the previous section. And also like what we learned in the last section, dθapprox[i] should be approximately equal to dθ[i], and that is what we will check by finding the euclidean distance, or the square root of the L2 norm, between the dθapprox[i] and dθ[i]. If the distance is approximately equal to the ε, you are calculating the gradients correctly.
+
+dθapprox[i] = (J(θ_1, θ_2,...,θ_i + ε,...,θ_l) - J(θ_1, θ_2,...,θ_i - ε,...,θ_l)) / 2ε
+
+distance = (||dθapprox[i] -dθ[i]||_2) / (||dθapprox[i]||_2 + ||dθ[i]||_2)
+
+If distance ≈ ε then gradients are correct
