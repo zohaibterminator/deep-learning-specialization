@@ -1,9 +1,0 @@
-One of the techniques to speed up your training is if you  normalize your inputs. Normalzation involves two steps:
-
-1. Zero out the mean: You will calculate the mean of each feature, and then subtract each feature's corresponding mean from each of it's values.
-
-2. Normalze the variance: You will then calculate the variance, and then standard deviation, for each feature. Then you divide each of the feature's element with it's standard deviation.
-
-First step is to make the mean of the dataset the origin, and the next step is to make sure each feature has similar variance. Also one tip, you will use the same values of mean and variance for your test set, as the ones you used for the training set.
-
-The reason we normalize the inputs, is that when the features are unnormalized, the cost function becomes very elongated, which makes you use a smaller learning rate, as the GD might take a lot steps to oscillate back and forth before reaching the minimum cost. But for normalized inputs, you can apply GD with a larger learning rate, as it becomes easier for GD to goe straight to the minimum. We usually call this standardization or z-score normalization.
