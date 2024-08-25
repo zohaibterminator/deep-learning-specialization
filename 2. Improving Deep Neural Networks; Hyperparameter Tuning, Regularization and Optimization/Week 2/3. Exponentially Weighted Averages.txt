@@ -1,0 +1,19 @@
+To understand other optimization algorithms, we need to understand a concept called Exponentially Weighted averages or Exponentially Weighted moving averages.
+
+Lets take a temperature reading of London of a whole year and plot that. The plot will slightly look like a bell shape plot, because the temperature will be on the lower side at the start of the year in January and Febuary, and will creep up and be the highest in the middle of the year, in June and July, then it will come back down towards the end of the year in November and December.
+
+If we want to calculate the trend, or the moving average of the plot, we will take V_0, and initialize it to 0. Then we will calculate V_1 as:
+
+V_1 = 0.9*V_0 + 0.1*θ_1
+
+Where θ_1 represents temperature on day 1 of the year. V_2 will alse be calculated as follows:
+
+V_2 = 0.9*V_1 + 0.1*θ_2
+
+The general formula becomes:
+
+V_t = 0.9*V_t-1 + 0.1*θ_t
+
+0.9 in the above equation represents the parameter β, and 0.1 represents 1-β. It turns out, when you do that, V_t will be calculated as approximately averaging over 1/(1-β) days' temperature. If we put β as 0.9, you can think of this as approximately averaging over last 10 days temperature. If we plot the values of the temperature calculated through this formula, you can see that the line will be a lot smoother.
+
+If we bump the values of β to 0.98, it will be approximately equal to averaging over 50 days. And if you now plot the temperatures calculated using this β, you will see that the line is now more smoother, because we are averaging over much larger window of temperatures. And you will also see that the curve will move more slowly when the trend of temperature goes down, because we are giving more weight to the previous value, so the change takes some time to affect the temperature.
