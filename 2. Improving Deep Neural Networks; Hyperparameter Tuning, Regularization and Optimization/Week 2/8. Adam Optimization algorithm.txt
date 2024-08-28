@@ -1,0 +1,18 @@
+The Adam optimization algorithm is basically taking momentum and RMSprop, and putting them together. This is the whole algorithm:
+
+On iteration t:
+    * Compute dW and db using current mini-batch (can also use batch)
+    * Calculate V_dW and V_db: V_dW = β_1*V_dW-1 + (1-β_1)*dW, V_db = β_1*V_db-1 + (1-β_1)*db (Momentum like update)
+    * Calculate S_dW and S_db: S_dW = β_2*S_dW-1 + (1-β_2)*dW^2, S_db = = β_2*S_db-1 + (1-β_2)*db^2 (RMSprop like update)
+    * Bias Correction for Momentum updates: V_dW = V_dW/(1-β_1^t), V_db = V_db/(1-β_1^t)
+    * Bias Correction for RMSprop updates: S_dW = S_dW/(1-β_2^t), S_db = S_db/(1-β_2^t)
+    * Update parameters W and b: W = W - α*(V_dW/sqrt(S_dW)), b = b - α*(V_db/sqrt(S_db))
+
+Lets look at the hyperparameters of this algorithm:
+
+* α: needs to be tuned
+* β_1: usually set at 0.9
+* β_2: Authors of the Adam papers recommend 0.999 value for this hyperparameter
+* ε: Tuning this parameters doesnt change much, and is usually set to 10^-8
+
+Usually, people set the values of β_1, β_2, and ε the same values as mentioned above, and tune the α to see what works best. You can tune β_1 and β_2 but it is not done that often.

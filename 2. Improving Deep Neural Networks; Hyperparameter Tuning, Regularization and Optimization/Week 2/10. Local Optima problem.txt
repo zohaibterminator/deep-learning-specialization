@@ -1,0 +1,9 @@
+In the early days of deep learning, people used to worry a lot about the optimization algorithm getting stuck in bad local optima. But as this theory of deep learning has advanced, our understanding of local optima is also changing.
+
+In the old days, the cost funtion available had a large number of "hills", and these plots were used to guide the practioners intuitions. But those intuitions were incorrect. In reality, that is not how global optima looks like. Many cost functions, when you plot them, look saddle shaped. For a gradient to be zero, the shape of the function should be either convex or concave, but these saddle shaped cost functions had both of those shapes. Because if you have a very high dimensional space, lets say 20,000 dimension space, all 20,000 dimension must look like a concave or convex shape. And the chances of that happening is very low. So, some direction might follow the concave shape, and some might follow convex shape.
+
+Plateaus can be a problem too. A plateau is a region where the derivative is close to zero for a long time, and because the gradient is zero or near zero, the surface is quite flat. You can actually take a very long time, you know, to slowly find your way to maybe this point on the plateau. And then because of a random perturbation of left or right, maybe then finally your algorithm can then find its way off the plateau.
+
+There are two takeaways from this lesson that you should know:
+* You are actually unlikely to be stuck in a bad local optima. As long as you are training a large neural network with a lot of parameters, so J is defined over a relatively high dimensional space, you are good.
+* Plateaus make learning slow. These are scenarios where more sophisticated optimization algorithms, such as Adam and RMSprop, can actually speed up the rate at which you could move down the plateau and then get off the plateau. 

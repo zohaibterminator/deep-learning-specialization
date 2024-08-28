@@ -1,0 +1,10 @@
+One of the things that might help speed up your learning algorithm is to slowly reduce your learning rate over time. This is called learning rate decay.
+
+Lets look at why would you use learning rate decay. When you have some fixed value for the learning rate, your algorithm might initially take large steps towards the minimum, but as it approaches the minimum, it might overshoot the minimum, and as it tries to get to the minimum, it would start circling around a larger area when trying to find it.But if you use learning rate decay, your gradient descent might still wander around, but it will do so in a tighter area near the minimum. The formula for decay rate is:
+
+α = 1/(1 + decay_rate * epoch_num) * α_0
+
+Where,
+ * epoch_num = number of passes through the data or the number of iterations
+ * decay_rate = hyperparameter that controls how much effect epoch number has on the learning rate
+ * α_0 initial learning rate

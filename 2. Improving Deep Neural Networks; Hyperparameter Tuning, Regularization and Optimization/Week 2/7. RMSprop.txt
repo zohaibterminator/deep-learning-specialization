@@ -1,0 +1,13 @@
+RMSprop, which means Root Mean Squared prop, is another optimization algorithm which can speed up GD.
+
+let's say that the vertical axis is the parameter b and horizontal axis is the parameter w. It could be w1 and w2 where some of the center parameters was named as b and w for the sake of intuition. And so, you want to slow down the learning in the b direction, or in the vertical direction. And speed up learning, or at least not slow it down in the horizontal direction. So this is what the RMSprop algorithm does to accomplish this:
+
+On iteration t:
+    * Compute derivatives dW and db on current mini-batch (also works on batch GD)
+    * Calculate S_dW = β*S_dW-1 + (1-β)*dW^2 (element wise square)
+    * Calculate S_db = β*S_db-1 + (1-β)*db^2 (again, element wise square)
+    * Update the parameters: W = W - α*(dW/sqrt(S_dW)), b = b - α*(db/sqrt(S_db))
+
+So what is happening is, since the slope is very large in the b direction, the gradient db will be very large, which means db^2 will be large, which then means that S_db will be very large. For dW, it will be the opposite, as the slope dW is smaller compared to db. Which means S_dW will be smaller. By dividing db by a large number, the oscillations will be dampened, because the updates will be slowed down in the vertical direction.
+
+Now just for the sake of clarity, we have been calling the vertical and horizontal directions b and w, just to illustrate this. In practice, you're in a very high dimensional space of parameters, so maybe the vertical dimensions where you're trying to damp the oscillation is a sum set of parameters, w1, w2, w17. And the horizontal dimensions might be w3, w4 and so on. And so, the separation W and b is just an illustration. In practice, dW is a very high-dimensional parameter vector and db is also very high-dimensional parameter vector, but your intuition is that in dimensions where you're getting these oscillations, you end up computing a larger sum. Also in practice, we add an ε in the denominator S_db and S_dW, so that the denominator does not become 0.

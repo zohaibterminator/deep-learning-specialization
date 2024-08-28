@@ -1,0 +1,13 @@
+Momentum, or GD with Momentum, is almost always faster than GD. The basic idea of it is that it takes the weighted average of your gradients and then use that gradients to update your weights instead.
+
+Normal gradient descent oscillates in upward and bottom direction when it moves towards the optimum loss. The oscillations get worse as you increase the learning rate, because you take larger and larger steps when you increase the learning rate. But if you take large steps in upward or lower directions, the algorithm diverges. We want to reduce these oscillations, because it slows down the learning by moving in upward and lower directions instead of making the algorithm go straight to the global optima.
+
+GD with momentum looks like this:
+
+on iteration t:
+    * Compute dW and db on current mini-batch (you can use batch GD as well, it works fine on both)
+    * calculate v_dW = β*v_dW-1 + (1-β)*dW
+    * calculate v_db = β*v_db-1 + (1-β)*db
+    * Update weights W = W - α*v_dW, b = b - α*v_db
+
+This smooths out the steps of GD, i.e. reduces the oscillations. Because the algorithm is moving in opposite directions vertically after each step, the average of them becomes close to 0. Since we are using averages to calculate our gradients, the oscillations reduces. Similarly, since the algorithm is moving in the same direction horizontally towards optimal cost, the averages stays pretty big. This allows your algorithm to take a more straight forward path. You can use bias correction as well, but it isnt used as much in practice, because after 10 iterations (if β is 0.9) the averages fix themselves and it not longer is a problem. In some literature, 1-β is omitted, but it is recommended you use this implementation instead.

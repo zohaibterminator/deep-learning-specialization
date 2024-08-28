@@ -1,0 +1,7 @@
+In the normal Estimated Weighted Averages, in the initial phase, the values of V_1 and V_2, for example, are way lower than the actual values of θ_1 or θ_2, so to correct that, we use Bias Correction method.
+
+What you do is that, instead of taking the v_t as it is, youdo  this:
+
+v_t/(1-β^t)
+
+Where t is the current day you are on (from the perspective of the previous example).

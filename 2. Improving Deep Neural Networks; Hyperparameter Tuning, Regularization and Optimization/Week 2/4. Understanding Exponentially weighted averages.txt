@@ -1,0 +1,26 @@
+This was the general equation of the exponentially weighted averages was:
+
+v_t = β*v_t-1 + (1-β)*θ_t
+
+If β is 0.9, and we have about 100 values of θ, it would look like this if we calculate them in reverse order:
+
+v_100 = 0.9*v_99 + 0.1*θ_100
+v_99 = 0.9*v_98 + 0.1*θ_99
+v_98 = 0.9*v_97 + 0.1*θ_98
+.
+.
+.
+
+If we take equation 1, and plug in the value of v_99 using equation 2, we would have:
+
+v_100 = 0.1*θ_100 + 0.9*(0.9*v_98 + 0.1*θ_99)
+
+if we plug in the value of v_98, we would have:
+
+v_100 = 0.1*θ_100 + 0.9*(0.1*θ_99 + 0.9*(0.9*v_97 + 0.1*θ_98))
+
+v_100 = 0.1*θ_100 + 0.9*0.1*θ_99 + 0.9^2*0.1*θ_98 + 0.9^3*v_97
+
+what we have above, is an exponentially decaying function. You will calculate the value of v_100 is the element wise sum of the functions 0.1*θ_t and 0.9*0.1*θ_t.
+
+We found out that keeping β at 0.9, it averages over 10 days. The value of 0.9*10 is equal to 0.35, which about 1/3rd of the original value. 0.9*10 is also equal to the value of 1/e. So, we would say that we are taking 10 days average into account, and after that, the value decays by about 1/3rd of the amount.
