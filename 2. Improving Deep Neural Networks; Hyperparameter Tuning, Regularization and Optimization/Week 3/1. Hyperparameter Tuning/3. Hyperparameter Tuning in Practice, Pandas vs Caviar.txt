@@ -1,0 +1,11 @@
+DL is applied to many different applications today, and intuitions about hyperparameter settings might change from one application to another.
+
+Even though you believe you have found a good setting of hyperparameters, intuitions regarding hyperparameters do get stale, so it is important to re-evaluate your hyperparameters once every several months.
+
+In terms of how people go about searching for hyperparameters, there are 2 schools of thoughts:
+
+* One way is that you babysit 1 model. You usually do this if you have a huge dataset but not a lot of computational resources(not a lot of CPUs or GPUs), so you can afford to train only 1 model or a very small number of models at a time. So, when babysitting a model, you only work on 1 model or very small number of models over a period of time and change the hyperparameters like learning rate very slowly.
+
+* The other way is training many models in parallel. So you set different values of the hyperparameters and just let the models run by itself for a day or many days.
+
+The approach 1 can be called the Pandas approach. Because when Pandas have children they have very few children and they put a lot of efforts into making sure that the baby panda survives. On the other end of the spectrum is fishes. Some fishes lay a million eggs in a year, so they dont take care of each indivdual child, but just see that hopefully a few of them will do well.

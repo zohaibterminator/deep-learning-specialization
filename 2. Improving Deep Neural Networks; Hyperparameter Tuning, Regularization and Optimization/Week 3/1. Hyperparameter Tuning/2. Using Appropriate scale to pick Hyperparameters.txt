@@ -1,0 +1,14 @@
+Sampling for hyperparameter's values doesn't mean sampling uniformly at random over a range of valid values. Instead, it is appropriate to pick an appropriate scale of values.
+
+Lets say you choosing the number of hidden units n of layer l, and you think that a good range of values is somewhere from 50 to 100. If search randomly in that range of values, than that is a viable way to search for this hyperparameter. Similarly, if you deciding on the right number of layers, and you think that values between 2-4 are a good range, then you can search for the value in this range, you can also use grid search for values 2, 3, and 4. These are the examples where sampling uniformly at random over the range you are contemplating might be a reasonable thing to do. But this is not true for all hyperparameters.
+
+Lets say you are searching for the value of learning rate, and you think that the lowest value for the learning rate should be 0.0001 and the highest can be 1. If you define a scale to search for random values in that range, most of the time, 90% of the resources to search for the values between 0.1 and 1, and only 10% of resources for searching between 0.0001 and 0.1. It is more reasonable to search for hyperparameters on a log scale. So instead of a linear scale from 0.0001 to 1, you would have 0.0001 to 0.001, 0.001 to 0.01, 0.01 to 0.1 and 0.1 to 1. Then you sample uniformly on this type of logarithmic scale. Now, you would have more resources for searching between each range. This is how you would implement this in Python:
+
+r = -4 * np.random.rand()
+alpha = 10 ** r
+
+The first line will set the range of possible values of r from -4 to 0. We will define this range [a, b] by taking the log of base 10 for both the extreme values of the range. Here, log(0.0001) will be -4, so a will be -4. And log(1) will be 0, so b will be 0.
+
+Similarly, for beta, lets say we want to define the possible range of beta to be 0.9 to 0.999. Again, the same thing will happen here as we wont be able to dedicate appropriate resources across the scale. So, instead, we will search for values of 1-beta, whose range will be 0.1 to 0.001. We will again use log scale to search for the valueso f 1-beta between range 0.1 to 0.01 and from 0.01 to 0.001.
+
+The mathematical reason as to why it is a bad idea to sample values for beta on a linear scale is that, as beta gets closer to 1, the sensitivity of the results you get changes even with very small changes to beta. So, if beta goes from 0.9 to 0.9005, there will be hardly any change in your results. But if 0.999 to 0.9995, it will have a huge impact. Because, previously, the difference of how many values was averaged over was only 10, but if beta goes from 0.999 to 0.9995, this means that the number of values that are averaged goes from 1000 to 2000.

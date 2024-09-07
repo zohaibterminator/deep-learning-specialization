@@ -1,0 +1,6 @@
+You can add batch norm pretty easily into a NN. In some frameworks like TensorFlow implementing the batch norm is just a matter of adding an additional line of code in your project. The updation of the parameters γ and β is based on the optimizing algorithms you have choosen. For example, for GD, the updation of γ and β will look like this:
+
+γ_new = γ_old - α*dγ_old
+β_new = β_old - α*dβ_old
+
+Batch norm is normally (funny ik) applied to mini-batches. In mini-batches, the mean and the variance that will be calculated will be based on the data in the mini-batch, not the whole dataset. There is also another interesting thing that happens in batch-normalization. Since, you are subtracting mean from the values of Z^[l] in the process of making the mean zero, this means that any constant you are adding, will lose impact because another constant will be subtracted from Z^[l]. Therefore, the impact of the 'b' or bias parameter will be none, and we can safely remove that parameter.
