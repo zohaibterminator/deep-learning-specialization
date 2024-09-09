@@ -1,0 +1,11 @@
+The name Softmax, comes from a contrasting it to what's called hardmax, which is just replacing the highest value in the vector with 1, and 0 everywhere else. Softmax is rather a more gentle mapping from the values of Z^[l] to the probabilities and then to the final prediction based on the biggest probability.
+
+Softmax regression generalizes logistic regression to C classes, and if C is equal to 2, the model is essentially a logistic regression model. A little proof as to why that is, is that if both of the probabilites given to us by the softmax layer have to sum up to 1, we just have calculated one value, and then see whether it is less than 0.5 or greater (or lesser or greater than any other threshold), which similar to the way we predict the classes in logistic regression.
+
+The loss function of the softmax regression is this:
+
+L(ŷ, y) = -Sum(y_i * log(ŷ_i))
+
+The intuition behind this is that, since only 1 value of y will be 1 (depending on which class the data point belongs to), so you will be left with only log(ŷ_i) part of the function for that data point (because y_i will be 1), and for making log(ŷ_i) small, the NN will make sure the value of ŷ_i is the biggest, which is what we want, we want the NN to predict the biggest probability for the ground truth class label. The cost function for the softmax classification will be the same:
+
+J(W, b) = 1/m * sum(L(ŷ, y))

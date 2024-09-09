@@ -1,0 +1,12 @@
+There's a generalization of logistic regression called Softmax regression. The less you make predictions where you're trying to recognize one of C or one of multiple classes, rather than just recognize two classes.
+
+For example, you want to recognize cats, dogs and baby chicks. So, cats will be class 1, dogs will be class 2, baby chicks will be class 3 and we will add another class for none of the above which we will call class 0.
+
+The number of classes is represented by C, whose value is 4. In this case, we will build a NN that will have C number of hidden units in the output layer. The hidden units in the output layer will give us the probabilities of each of the four classes. The first hidden unit will give is the probability for class 0, the second hidden unit will give is the probability for class 1, and so on. The standard model for getting a NN to do this uses what's called a Softmax layer.
+
+The softmax layer is called as such because it uses Softmax function as it's activation function. The softmax function first calculates e^(Z^[l]), where e represents the exponent function. Since, Z^[l] is a 4x1 dimensional vector in our case (since we have 4 hidden units in the output layer), therefore, e^(Z^[l]) will also be a 4x1 vector. The probabilities for each of the class will be calculated as follows:
+
+for t in e^(Z^[l]):
+    a_i^[l] = t/sum(e^(Z^[l]))
+
+In this way, each value in a^[l] will represent a probability of a class. a_0^[l] will represent probability of class 0, a_1^[l] will represent the probability of class 1 and so on.
