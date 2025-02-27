@@ -1,0 +1,21 @@
+Let's say in building a machine learning system you're trying to decide whether or not to use an end-to-end approach. Let's take a look at some of the pros and cons of end-to-end deep learning so that you can come away with some guidelines on whether or not an end-to-end approach seems promising for your application. Lets look at the pros first:
+
+1. Let the data speak
+
+So if you have enough X,Y data then whatever is the most appropriate function mapping from X to Y, if you train a big enough neural network, hopefully the neural network will figure it out. And by having a pure machine learning approach, your neural network learning input from X to Y may be more able to capture whatever statistics are in the data, rather than being forced to reflect human preconceptions. So for example, in the case of speech recognition earlier speech systems had this notion of a phoneme which was a basic unit of sound And I think that phonemes are an artifact created by human linguists. I actually think that phonemes are a fantasy of linguists that are a reasonable description of language, but it's not obvious that you want to force your learning algorithm to think in phonemes. And if you let your learning algorithm learn whatever representation it wants to learn rather than forcing your learning algorithm to use phonemes as a representation, then its overall performance might end up being better.
+
+2. Less hand-designing of components needed
+
+This could simplify your design work flow, that you just don't need to spend a lot of time hand designing features, hand designing these intermediate representations.
+
+Lets now look at some cons:
+
+1. May need large amount of data.
+
+So to learn this X to Y mapping directly, you might need a lot of data of X, Y and we were seeing in a previous video some examples of where you could obtain a lot of data for subtasks. Such as for face recognition, we could find a lot data for finding a face in the image, as well as identifying the face once you found a face, but there was just less data available for the entire end-to-end task.
+
+2. Excludes potentially useful hand-designed components.
+
+So machine learning researchers tend to speak disparagingly of hand designing things. But if you don't have a lot of data, then your learning algorithm doesn't have that much insight it can gain from your data if your training set is small. And so hand designing a component can really be a way for you to inject manual knowledge into the algorithm, and that's not always a bad thing. So when you have a ton of data it's less important to hand design things but when you don't have much data, then having a carefully hand-designed system can actually allow humans to inject a lot of knowledge about the problem into an algorithm deck and that should be very helpful. They could also be harmful if it really limits your performance, such as if you force an algorithm to think in phonemes when maybe it could have discovered a better representation by itself. So it's kind of a double edged sword that could hurt or help but it does tend to help more, hand-designed components tend to help more when you're training on a small training set.
+
+So if you're building a new machine learning system and you're trying to decide whether or not to use end-to-end deep learning, I think the key question is, do you have sufficient data to learn the function of the complexity needed to map from X to Y?

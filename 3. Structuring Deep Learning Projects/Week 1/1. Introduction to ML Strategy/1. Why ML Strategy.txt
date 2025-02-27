@@ -1,0 +1,12 @@
+To understand ML strategy, lets look at an example. You have trained a cat classifier, and it is giving you 90% accuracy. You decide that you should improve your NN. Some ideas to improve your NN that you thought of are:
+
+1. Collect more data
+2. Collect more diverse training set (cats in more poses, or more diverse negative examples)
+3. Train your algorithm longer with GD
+4. Use a different optimizing algorithm entirely (for example, Adam)
+5. Try bigger or smaller network
+etc, etc...
+
+There can be many ways to choose how to improve your NN, but if you choose poorly and spend a lot of time, say 6 months, working on that idea, only to realize that that didnt do any good.
+
+In this course, we will learn some effective strategies to analyze your ML problem, that will point you in a direction of the most promising things to try, and safely discard the rest.

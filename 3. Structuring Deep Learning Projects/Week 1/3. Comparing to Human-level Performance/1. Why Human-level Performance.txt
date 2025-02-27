@@ -1,0 +1,25 @@
+In the last few years, a lot more machine learning teams have been talking about comparing the machine learning systems to human level performance. There are two main reasons:
+
+1. Due to the advances in Deep Learning, ML models are now working much better so it has become much more feasible in a lot of application areas for ML algorithms to actually become competitive with human-level performance.
+
+2. The workflow of designing and building ML systems have become more efficient when you are trying to do something humans can also do. So in those settings, it becomes natural to talk about comparing, or trying to mimic human-level performance.
+
+In a lot of ML tasks, as you work on a problem over time, progress tends to be relatively rapid as you approach the human-level performance. But after a while, as the algorithm surpasses the human-level performance, the progress slows down. The algorithm may keep getting better but the progress is not as fast as it used to be. Then the hope is it achieves some theoretical optimum level of performance, which is called Basye optimal error.
+
+So Bayes optimal error, think of this as the best possible error, is just the way for any function mapping from x to y to surpass a certain level of accuracy. Optimal error may not be 0%, as, in the case of the cat classifier, there can be certain cat images that are so blurry that it is impossible to correctly classify it. So the level of performance may not be 100%.
+
+There can be 2 reasons why the progress slows down after surpassing human-level performance:
+
+1. Human-level performance for many tasks is not far from the Bayes optimal error. People are very good at looking at images and telling if there's a cat or listening to audio and transcribing it. So, by the time you surpass human level performance maybe there's not that much head room to still improve.
+
+2. So long as your performance is worse than human level performance, then there are actually certain tools you could use to improve performance that are harder to use once you've surpassed human level performance.
+
+For tasks that humans are good at, so long as your machine learning algorithm is still worse than the human, you can:
+
+* Get labeled data from humans. You can ask/hire people to get label examples for you so that you can have more data to feed your learning algorithm.
+
+* Gain insight from manual error analysis, as to understand why did a person got it right or got it wrong.
+
+* Better analysis of bias/variance.
+
+Once the algorithm is doing better than humans, then these tactics are harder to apply.

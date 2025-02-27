@@ -1,0 +1,5 @@
+Getting a supervised learning algorithm to work well means fundamentally hoping or assuming they can do two things:
+
+1. You can fit the training set pretty well (achieve low avoidable bias).
+
+2. The training set performance generalizes pretty well to the dev/test set (low variance).
