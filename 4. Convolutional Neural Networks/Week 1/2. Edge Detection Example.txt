@@ -1,0 +1,24 @@
+The convolution operation is one of the fundamental building blocks of a convolutional neural network. Using edge detection as the motivating example, we will see how the convolution operation works.
+
+We have learned that in a neural network, the earlier layers might detect lower-level features like edges, then some later layers might detect parts of objects, and then even later layers detect parts of complete objects like people's faces. We will see how we will detect the edges. Given a picture, for a computer to figure out what are the objects in this picture, the first thing you might do is maybe detect vertical edges in the image. And you might also want to detect horizontal edges.
+
+Now how do you do detect the edges? Lets say you have a 6x6 grayscale image, that is represented by a 6x6x1 matrix. In order to detect vertical edges, you can construct a 3x3 matrix, which is called a filter or a kernel, with these values:
+
+filter = [
+    1, 0, -1
+    1, 0, -1
+    1, 0, -1
+]
+
+Then you will take the 6x6 image, and convolve it with the 3x3 filter. As a result, you will get a 4x4 vector. Now, the way you will get this resultant matrix, is to get the left top most value of the 4x4 vector, you will take the 3x3 filter, and paste it on top of the upper left 3x3 region of the image. You will perform the element-wise product of the matrices, then add up all the products. Now, to calculate the value of the cell at index [0,1], you will take the filter on the image, and shift it to the right by 1 cell, then perform the same element-wise product and addition.
+
+So, why is this doing vertical edge detection. We will now use a simpler example. We will take another image of the same size, but the left half of the matrix is 10, while the right half of the image is 0. If you will plot the image, you will see that the left side of the image will be white, as it has higher pixel intensity values, while the right side of the image will be gray or black. You will also see a clear vertical edge down the center of the image, as the image transitions from white to black. We will also take the same 3x3 filter. When you plot that, you will see that the left 1/3rd of the filter will be white, center of the filter will be grayish, and right side of the filter will be blac. When you convolve the image by the same 3x3 filter, you will get this resultant matrix:
+
+[
+    0, 30, 30, 0
+    0, 30, 30, 0
+    0, 30, 30, 0
+    0, 30, 30, 0
+]
+
+Now if you plot this resultant matrix, you will see that the middle of the matrix will be brighter, as there are higher pixel intensity values in the center of the image, and that corresponds to this having detected this vertical edge down the middle of the image. In case the dimensions here seem a little bit wrong that the detected edge seems really thick, that's only because we are working with very small images in this example. And if you are using, say a 1000 by 1000 image rather than a 6 by 6 image then you find that this does a pretty good job, really detecting the vertical edges in your image.

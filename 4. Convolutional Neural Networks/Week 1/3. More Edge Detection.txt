@@ -1,0 +1,31 @@
+We have seen how the convolution operation allows you to implement a vertical edge detector. Now, we'll learn the difference between positive and negative edges, that is, the difference between light to dark versus dark to light edge transitions. And we'll also see other types of edge detectors, as well as how to have an algorithm learn, rather than have us hand code an edge detector as we've been doing so far.
+
+We had seen in the previous example where the image was darker on the right side, and brighter on the left side, resulting in an image which was brighter down the middle to indicate the detected edge. What if we switched the values of the original image. Let the right side of the image matrix have the values 10, and the right side have the values 0. If you convolve it with the same edge detector, we will see that the resultant matrix will have -30 values down the middle instead of 30. And, if we plot the resultant image, we will see that the middle of the image will be dark. Because the shades of the transitions have reversed, the 30s now gets reversed as well and become -30s, which indicate that this is a dark to light, instead of a light to dark transition.
+
+We have seen the filter for vertical edge detection, now we will now see an example with horizontal edge detector.
+
+filter = [
+    1, 1, 1
+    0, 0, 0
+    -1, -1, -1
+]
+
+So as a reminder, a vertical edge according to the filter we have been using, is a 3x3 region where the pixels are relatively bright on the left part and relatively dark on the right part. So similarly, a horizontal edge would be a 3x3 region where the pixels are relatively bright on top and relatively dark in the bottom row.
+
+The 3x3 vertical edge detection filter we have used so far, is just one possible choice. Historically, CV researchers have used many filters, for example, the Sobel filter:
+
+[
+    1, 0, -1
+    2, 0, -2
+    1, 0, -1
+]
+
+The advantage of this filter is that it gives more weight to the central pixel, and makes it a little bit more robust. There is also the Scharr filter:
+
+[
+    3, 0, -3
+    10, 0, -10
+    3, 0, -3
+]
+
+With the rise of deep learning, one of the things we learned is that when you really want to detect edges in some complicated image, maybe you don't need to have computer vision researchers handpick these nine numbers. Maybe you can just learn them and treat the nine numbers of this matrix as parameters, which you can then learn using back propagation. And the goal is to learn nine parameters so that when you take the image, the 6x6 image, and convolve it with your 3x3 filter, that this gives you a good edge detector. And what we will see later is that by just treating these nine numbers as parameters, the backprop can choose to learn the original filter we have been using, if it wants, or learn the Sobel filter or learn the Scharr filter, or more likely learn something else that's even better at capturing the statistics of your data than any of these hand coded filters. And rather than just vertical and horizontal edges, maybe it can learn to detect edges that are at 45 degrees or 70 degrees or 73 degrees or at whatever orientation it chooses. And so by just letting all of these numbers be parameters and learning them automatically from data, we find that neural networks can actually learn low level features even more robustly than CV researchers are generally able to code up these things by hand. But underlying all these computations is still the convolution operation, which allows back propagation to learn whatever 3x3 filter it wants and then to apply it throughout the entire image in order to output whatever feature it's trying to detect.

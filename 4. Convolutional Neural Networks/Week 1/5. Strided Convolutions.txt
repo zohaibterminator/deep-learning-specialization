@@ -1,0 +1,21 @@
+Strided convolutions is another piece of the basic building block of convolutions as used in convolution neural networks.
+
+Lets say you have a 7x7 image, and you want to convolve it with a 3x3 filter. But you set the stride to 2. Now, after convolution of the filter with the top left of the image, you will slide the filter by 2 steps instead of 1. When you moving over to a new row, you will again take 2 steps instead of one, so if you started with the top left of the image, meaning from row 0, you will then move to row 2, by taking 2 steps instead of 1. After convolution, you will get a resultant matrix of size 3x3. So, the formula for calculating the resultant matrix if you are doing strided convolutions is ((n - f + 2p)/s + 1) x ((n - f + 2p)/s + 1). Now in case the expression (n - f + 2p)/s results in a fraction, we will round it down to an integer. So, add an additional floor function around the expression in the formula.
+
+Just a technical note, in math literature, there is an extra step involved in a convolution operation, in which we flip the kernel on both x and y axis. So, if we have a filter:
+
+[
+    3, 4, 5
+    1, 0, 2
+    -1, 9, 7
+]
+
+The flipped kernel would be:
+
+[
+    7, 9, -1
+    2, 0, 1
+    5, 4, 3
+]
+
+While, in DL, we usually skip this step. What we do in DL is basically called cross-correlation in math literature. But, in DL we call it the convolution operation. We will use this convention. It turns out that in signal processing or in certain branches of mathematics, doing the flipping in the definition of convolution causes convolution operator, to enjoy associative property. This is nice for some signal processing applications. But for deep neural networks, it really doesn't matter, and so omitting this double mirroring operation just simplifies the code
