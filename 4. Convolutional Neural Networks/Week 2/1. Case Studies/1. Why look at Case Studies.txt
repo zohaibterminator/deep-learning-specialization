@@ -1,0 +1,11 @@
+The past few years of computer vision research has been on how to put together the basic building blocks of ConvNets to form effective convolutional neural networks. One of the best ways to gain intuition yourself is to see some of these examples.
+
+Also, it turns out that a neural network architecture that works well on one computer vision tasks often works well on other tasks as well. If someone else has figured out a neural network architecture that's very good at recognizing cats and dogs and people. But you have a different computer vision tasks like maybe you're trying to build a self-driving car, you might well be able to take someone else's neural network architecture and apply that to your problem.
+
+We will first see the 3 classic NN architectures:
+
+1. LeNet-5
+2. AlexNet
+3. VGG
+
+Then we will see ResNet, or Residual Network, and then finally, Inception Neural Network.

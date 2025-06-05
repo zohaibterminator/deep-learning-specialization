@@ -1,0 +1,25 @@
+To understand why neural network works, we will take an example of a large NN, that outputs activation a^[l]. Now, you decide to modify the original neural network to add 2 more layers, which now outputs a^[l+2], and make it a residual block so that the a^[l] is now passed to the last layer. Lets also assume we are using ReLU activation function in all layers, which returns a >= 0. The equation for a^[l+2] will be quite similar to our last example, which was:
+
+a^[l+2] = g(z^[l+2] + a^[l])
+
+or
+
+a^[l+2] = g(W^[l+2] * a^[l+1] + b^[l+2] + a^[l])
+
+Now, if you were using L2 regularization on W and b, it would shrink the values of W^[l+2] and b^[l+2]. So, if W^[l+2] and b^[l+2] is zero, or close to zero, which means that the z^[l+2] is basically zero, and the equation for a^[l+2] will basically become:
+
+a^[l+2] = g(a^[l])
+
+or
+
+a^[l+2] = a^[l] (considering we are using ReLU activation function)
+
+So, this means that the identity function is easily learnable through the residual block, if the new layers learn nothing (i.e., return all zeros), the shortcut ensures the block still returns a^[l]. And what that means is that adding these two layers in your neural network, it doesn't really hurt your neural network's ability to do as well as this simpler network without these two extra layers, because it's quite easy for it to learn to just copy a^[l] to a^[l+2] despite the addition of these two layers. And this is why adding two extra layers, adding this residual block to somewhere in the middle or the end of this big neural network doesn't hurt performance. But, of course, our goal is to not just not hurt performance, is to help performance and so you can imagine that if all of these hidden units, that we added with the 2 layers, if they actually learned something useful then maybe you can do even better than learning the identity function.
+
+What goes wrong in very deep plain nets in very deep network without this residual of the skip connections is that when you make the network deeper and deeper, it's actually very difficult for it to choose parameters that learn even the identity function which is why a lot of layers end up making your result worse rather than making your result better. And the main reason the residual network works is that it's so easy for these extra layers to learn the identity function that you're kind of guaranteed that it doesn't hurt performance and then a lot the time you maybe get lucky and then even helps performance.
+
+So, one more detail in the residual network that's worth discussing which is through the addition of a^[l], we're assuming that z^[l+2] and a^[l] have the same dimension. And so what you see in ResNet is a lot of use of 'same' convolutions so that the dimension of z^[l+2] is equal to the dimension a^[l] or the output layer. So that we can actually do this short circuit connection, because the same convolution preserve dimensions, and so makes that easier for you to carry out this short circuit and then carry out the addition of two equal dimension vectors.
+
+In case the input and output have different dimensions so for example, if a^[l] is a 128 dimensional and Z^[l+2] or therefore, a^[l+2] is 256 dimensional as an example. What you would do is add an extra matrix and then call that W_s, and W_s in this example would be a 256 x 128 dimensional matrix, which will basically project the values of a^[l] to 256 dimensions. So, W_s times a^[l] becomes 256 dimensional and this addition is now between two 256 dimensional vectors. There are few things you could do with W_s, it could be a matrix of parameters to be learned, it could be a fixed matrix that just implements zero paddings that takes a^[l] and then zero pads it to be 256 dimensional and either of those versions I guess could work.
+
+In the ResNet paper, you can see some of the same ideas we mentioned here. They used 'same' convolutions, which preserves the dimension size and allows for the matrix addition. They used pooling layers as well, which reduces the dimensionality of the feature maps, for which they compensated by using W_s matrix. The architecture pattern of Conv-Conv-Pooling can also be observed here, which can also be seen in other CNN architectures we discussed.

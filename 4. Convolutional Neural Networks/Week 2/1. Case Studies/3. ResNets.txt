@@ -1,0 +1,23 @@
+Very, very deep neural networks are difficult to train, because of vanishing and exploding gradient problems. Now, you'll learn about skip connections which allows you to take the activation from one layer and suddenly feed it to another layer much deeper in the neural network. And using that, you'll build ResNet which enables you to train very, very deep networks. Sometimes even networks of over 100 layers.
+
+ResNets are built on something called Residual block. To understand that, lets take an example of 2 layers. Lets say you have activation a^[l], which will be passed to the first layer of the 2. Now, two happens in a layer, which is first linear operation is applied, which is governed by the equation:
+
+z^[l+1] = a^[l] * W^[l+1] + b^[l+1]
+
+Which is the simple weight matrix multiplication and addition of bias, which results in z^[l+1]. Then, in the second step, ReLU activation is applied, which is governed by the equation:
+
+a^[l+1] = g(z^[l+1])
+
+This gives us the activation of the first layer. In the second layer, the same operations are applied in the same order, the activation a^[l+1] is multiplied by W^[l+2], then b^[l+2] is added, giving us z^[l+2], which is, again, passed through a ReLU function giving us a^[l+2]. So, in simple words, for information from a^[l] to flow to a^[l+2], it needs to go through all of the steps mentioned above, which is what we will call "main path" of this set of layers.
+
+In a ResNet, we will make a slight change to this layer, and actually fast-forward the a^[l] further into the NN to the position before the final ReLU non-linearity is applied. We will call this the "shortcut path". So, instead of following the main path, the information can take the "shortcut path" to go much deeper into the neural network. So, the final equation, instead of being this:
+
+a^[l+2] = g(z^[l+2])
+
+To this:
+
+a^[l+2] = g(z^[l+2] + a^[l])
+
+The addition of a^[l] here makes it a residual block. So, if layer 2 has 5 neurons, after the calculation of z^[l+2], a^[l] will be added before the final ReLU activation is applied. This "shortcut path" is sometimes also referred to as a skip connection, because the information is skipping over some steps to go deeper into the network. 
+
+What the inventors of ResNets actually founded was that Residual Nets allows you to train much deeper networks. Because as it turns out that if you use your standard optimization algorithm such as a gradient descent or one, empirically, you find that as you increase the number of layers, the training error will tend to decrease after a while but then they'll tend to go back up. And, in theory as you make a neural network deeper, it should only do better and better on the training set. Right. So, in theory, having a deeper network should only help. But in practice or in reality, having a plain network that is very deep means that your optimization algorithm just has a much harder time training. And so, in reality, your training error gets worse if you pick a network that's too deep. But what happens with ResNet is that even as the number of layers gets deeper, you can have the performance of the training error kind of keep on going down. Even if we train a network with over a hundred layers.
