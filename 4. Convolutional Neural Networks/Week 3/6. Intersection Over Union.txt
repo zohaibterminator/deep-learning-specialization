@@ -1,0 +1,7 @@
+We use IoU to evaluate your object detection algorithm, as well as use it to add another component to your object detection algorithm to make it work even better.
+
+So what the intersection over union function does, or IoU does, is it computes the intersection over union of these two bounding boxes. So, the intersection is the overlapping area of the ground truth bounding box and the predicted bounding box, meanwhile the union is entire area covered in either boxes. So what the intersection of a union does is it computes:
+
+size of the intersection / size of the union
+
+And by convention, a lot of CV tasks will judge that your answer is correct if the IoU is greater than 0.5. If the predicted bounding box and the ground truth bounding box overlap perfectly, the IoU will be 1, but, overall if the IoU is greater than or equal to 0.5, the results will be pretty decent. This is by convention, there is no theoretical reason for it, so you can specify stricter threshold, like 0.6 or 0.7, but the higher the IoUs, the more accurate the bounding the box. And so, this is one way to map localization, to accuracy where you just count up the number of times an algorithm correctly detects and localizes an object where you could use a definition like this, of whether or not the object is correctly localized.
