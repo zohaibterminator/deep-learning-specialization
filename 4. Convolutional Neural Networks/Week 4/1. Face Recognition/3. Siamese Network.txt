@@ -1,0 +1,11 @@
+The job of the function d is to input two faces and tell you how similar or how different they are. A good way to do this is to use a Siamese network.
+
+In normal ConvNets, you have an image X^(1), and then through a sequence of convolutional and pooling and fully connected layers, end up with a feature vector. And sometimes this is fed to a softmax unit to make a classification. We're not going to use that. Instead, we're going to focus on this vector of let's say 128 numbers computed by some fully connected layer that is deeper in the network, which we will call f(X^(1)), and you should think of this as an encoding of the input image X^(1).
+
+The way you can build a face recognition system is then that if you want to compare the image X^(1) to another image, say X^(2), then you would feed X^(2) to the same ConvNet to get a different feature vector of 128 numbers, which is the encoding of the image X^(2) which will we will call f(X^(2)). Finally, if you believe that these encodings are a good representation of these two images, what you can do is then define the distance d(X^(1), X^(2)) between the two images as the L2 norm of the difference of the encodings of the images:
+
+d(X^(1), X^(2)) = ||f(X^(1)) - f(X^(2))||^2
+
+So this idea of running two identical, convolutional neural networks on two different inputs and then comparing them, sometimes is called a Siamese neural network architecture.
+
+So how do you train this Siamese neural network? Remember that these two neural networks have the same parameters. So what you want to do is really train the neural network so that the encoding that it computes results in a function d that tells you when two pictures are of the same person. So, more formally, what you want to do is learn parameters so that if two pictures, X^(i) and X^(j), are of the same person, then you want that distance between their encodings to be small. And in contrast, if X^(i) and X^(j) are of different persons, then you want that distance between their encodings to be large.

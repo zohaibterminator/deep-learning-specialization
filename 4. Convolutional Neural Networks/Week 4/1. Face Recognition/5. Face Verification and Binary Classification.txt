@@ -1,0 +1,10 @@
+The Triplet Loss is one good way to learn the parameters of a ConvNet for face recognition. There's another way to learn these parameter, by posing the face recognition problem as a straight binary classification problem.
+
+What we will do is take the Siamese NN, and have them both compute the feature vector of the image of size, lets say, 128 values or higher dimensional, and then have these be input to a logistic regression unit to then just make a prediction, 1 if both of these are the same person, or 0, if both of these are not the same function. So, this is a way to treat face recognition just as a binary classification problem. And this is an alternative to the triplet loss for training a system like this.
+
+Before passing the encodings of the images directly through the sigmoid function to calculate a prediction, what you will do is, take the element-wise differences of the encodings, and then multiply each difference with the weights of the last layer, the sigmoid layer, and then pass it through the sigmoid function. So, this will be one pretty useful way for the NN to learn to predict 0 or 1 whether these are the same person or different persons. And there are a few other variations on how you can compute the differences. For example, you can calculate the chi-square similarity, in which you square the differences of each element of the vectors, and then divide by the sum of both the elements:
+
+for each element k=1 through 128:
+    ( (f(X^(i))k - f(X^(j))k)^2 ) / ( f(X^(i))k + f(X^(j))k )
+
+Lastly, just to mention, one computational trick that can help neural deployment significantly, which is that, if you have a new image, and you are comparing that to an image you have in the database, then instead of having to compute the embedding of the image in the database every single time, you can actually pre-compute the embedding, so, when the new employee walks in, what you can do is calculate the embedding for them, then compare it to your pre-computed encoding and then use that to make a prediction.
