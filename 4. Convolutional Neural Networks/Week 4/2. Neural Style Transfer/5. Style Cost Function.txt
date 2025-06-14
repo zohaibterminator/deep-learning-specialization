@@ -1,0 +1,26 @@
+Next, let's take a look at the style cost function. So, what is the style of an image mean?
+
+And let's say you've chosen some layer 'l' to define the measure of the style of an image. What we need to do is define the style as the correlation between activations across different channels in this layer 'l'. Lets say you have an n_h x n_w x n_c activations of the layer 'l', and lets say that nc is equal to 5. To calculate the correlation, or to measure the style of the image, of the 2nd and 3rd channel, you will look at all the n_h x n_w pair of numbers of the 2 channels and find how correlated they are.
+
+So, why does this capture style? Lets say the 2nd channel's activations are capturing thin vertical lines, and the 3rd channel's activations are capturing orange tints or orange colour patches. What does it mean for these two channels to be highly correlated? Well, if they're highly correlated what that means is whatever part of the image has this type of subtle vertical texture, that part of the image will probably have these orange-ish tint. Well, it means that whenever there is this vertical texture, it's probably won't have that orange-ish tint. So the degree of correlation gives you one way of measuring how often these different high level features, such as vertical texture or this orange tint or other things as well, occur together and don't occur together in different parts of an image. And so, if we use the degree of correlation between channels as a measure of the style, then what you can do is measure the degree to which in your generated image G is similar in style to the style image S.
+
+So what you can to do is given an image computes something called a style matrix, which will measure all those correlations. So, the matrix G_kk'^[l], which is the style matrix, will be of size n_c^[l] x n_c^[l], where the element G_kk'^[l] will have the correlation measure of the channel k compared to channel k', where k and k' will range from 1 to n_c. So, the formula for G_kk'^[l] will be:
+
+G_kk'^[l] = ∑(i=1 to n_h^[l]) ∑(j=1 to n_w^[l]) (a_ijk^[l] * a_ijk'^[l])
+
+Where a_ijk^[l] represents the activation of layer 'l' at height i, width j and channel k, whereas a_ijk'^[l] represents the activation of layer 'l' at height i, width j and channel k'. You, then compute the G_kk'^[l] for every value of k and k' from 1 to n_c^[l]. And you'd actually do this for both the style image S, and for the generated image G. So, G_kk'^[l] for style and generated image will be:
+
+G_kk'^[l](S) = ∑(i=1 to n_h^[l]) ∑(j=1 to n_w^[l]) (a_ijk^[l](S) * a_ijk'^[l](S))
+
+G_kk'^[l](G) = ∑(i=1 to n_h^[l]) ∑(j=1 to n_w^[l]) (a_ijk^[l](G) * a_ijk'^[l](G))
+
+
+So, the style cost function can be defined as the sum of squared differences of G^[l](S) and G^[l](G):
+
+J_style^[l](S,G) = ||G^[l](S) - G^[l](G)||^2
+
+The authors of the original paper also used an additional normalization constant:
+
+1/(2 * n_h^[l] * n_w^[l] * n_c^[l])
+
+But a normalization constant doesn't matter that much because this causes multiplied by some hyperparameter β anyway. And, finally, it turns out that you get more visually pleasing results if you use the style cost function from multiple different layers. So, the overall style cost function, you can define as sum over all the different layers of the style cost function for that layer. This can also be weighted by some set of hyperparameters which we will label λ^[l]. So what it does is allows you to use different layers in a neural network. Well, the early ones, which measure relatively simpler low level features like edges as well as some later layers, which measure high level features and cause a neural network to take both low level and high level correlations into account when computing style.
