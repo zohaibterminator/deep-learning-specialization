@@ -1,0 +1,23 @@
+Gated Recurrent Unit (GRU), which is a modification of the RNN hidden layer, is much better at capturing long-range dependencies and helps a lot with the vanishing gradient problems.
+
+Lets take the example sentence we saw previously "The cat, which already ate, was full" to explain GRUs. As we read this sentence from left to right, the GRU unit is going to have a new variable called C, which stands for cell, or memory cell. What the memory cell do is it will provide a bit of memory to remember, for example, whether cat was singular or plural, so that when it gets much further into the sentence, it can still work on the consideration whether the subject of the sentence was singular or plural. At time t, the memory cell will have some value c^<t>. What we'll see is that the GRU unit will actually output an activation value a^<t> that's equal to c^<t>, meaning a^<t> and c^<t> can be used interchangebly because they refer to the same thing in GRUs.
+
+These are the equations that govern the computations of a GRU unit. At every time step, we're going to consider an overwriting the memory cell with a value c'^<t>:
+
+c'^<t> = tanh(Wc * [Γr * c^<t-1>, x^<t>] + bc)
+
+This going to be a candidate for replacing c^<t>. Then the key, really the important idea of the GRU, it will be that we'll have some gates. One of these gates is technically called the reset gate, but we can also call it the relevant gate, and it would have a value between 0 and 1:
+
+Γr = σ(Wr * [c^<t-1>, x^<t>] + br)
+
+Because it will have a value between 0 or 1, we will use the sigmoid activation function to squish the values between 0 and 1 range. This reset gate decides which part of the memory cell, which is passed on from the previous time step, is relevant in the process of coming up with a candidate unit c'^<t>. There is also another gate called update gate, which also have values between 0 and 1.
+
+Γu = σ(Wu * [c^<t-1>, x^<t>] + bu)
+
+Since we are coming up with candidate memory cells, this update gate actually decides when to update the memory cell. So, the actual equation for updating the memory cell is:
+
+c^<t> = Γu * c'^<t> + (1 - Γu) * c^<t-1>
+
+Once this memory cell is updated, it is used in the softmax function to make a prediction, similar to what we saw in RNNs, and also get passed on to the next time step. This updation step helps in curbing the vanishing gradient problem because Γu is not always exactly 0, nor always exactly 1, which means some part of the previous learnings always gets retained and "memorized".
+
+In the equations we have written, c^<t> can be a vector. If you have 100-dimensional hidden activation value, then c^<t> can be 100-dimensional Zai, and so c'^<t> would also be the same dimension and Γu would also be the same dimension. Which means that the multiplicaton operation in the memory cell update equation is actually an element-wise multiplication. Here, if the Γu is 100-dimensional vector, what it is, is really 100-dimensional vector of bits, the value is mostly 0 and 1, that tells you of this 100-dimensional memory cell, which are the bits you want to update. Of course in practice, Gamma won't be exactly 0 and 1, sometimes it will have values in the middle as well. You can choose to keep some bits constant while updating other bits. For example, maybe you'll use one-bit to remember the singular or plural cat, and maybe you'll use some other bits to realize that you're talking about food, etc.

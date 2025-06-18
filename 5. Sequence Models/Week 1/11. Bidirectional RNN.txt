@@ -1,0 +1,18 @@
+By now we've seen most of the key building blocks of the RNN. But there are just two more ideas that let you build much more powerful models. One is bidirectional RNN, which lets you at the point in time to take information from both earlier and later in the sequence.
+
+We again take the example of 2 sentences:
+
+"Teddy bears are on sale!"
+"Teddy Roosevelt was a great President!"
+
+If we are training the RNN model for NER, one of the problems of this network is that, to figure out whether the third word Teddy is a part of a person's name, it's not enough to just look at the first part of the sentence. So to tell if y^<3> should be 0 or 1, you need more information than just the first few words. Because the first three words doesn't tell you if they're talking about Teddy bears, or talk about the former US President, Teddy Roosevelt.
+
+What a bidirection RNN or a BRNN does to fix this issue? Lets say we have 4 inputs x^<1> to x^<4>. So this network's hidden layer will have forward recurring components a^<1>, a^<2>, a^<3>, and a^<4>. And so each of these four recurrent units inputs the current x^<t>, and then predict ŷ^<1> to ŷ^<4>. A BRNN also has a backward recurring components as well, and they are all connected to each other, going backwards in time.
+
+The network defines an acyclic graph, and the prediction ŷ^<t> is computed after the forward pass from right to left, and forward pass from left to right is completed, which means that both the activation at time step t in both forward and backward directions are used to make the final prediction:
+
+ŷ^<t> = g(Wy * [a_for^<t> a_back^<t>] + by)
+
+So, if you make the prediction ŷ^<3>, you will get the information from both directions, flowing from left to right and from right to left. What is good about RNNs is that you can apply this bidirection idea to both LSTMs as well as GRUs to make them bidirectional. In fact, for a lot of NLP problems, for a lot of text or natural language processing problems, a bidirectional RNN with a LSTM appears to be commonly used. So, if you have an NLP problem, and you have a complete sentence, you're trying to label things in the sentence, a bidirectional RNN with LSTM blocks before then backward would be a pretty reasonable first thing to try.
+
+The disadvantage of the bidirectional RNN is that, you do need the entire sequence of data before you can make predictions anywhere. So, for example, if you're building a speech recognition system then BRNN will let you take into account the entire speech elements. But if you use this straightforward implementation, you need to wait for the person to stop talking to get the entire utterance before you can actually process it, and make a speech recognition prediction. So the real time speech recognition applications, there are somewhat more complex models as well rather than just using the standard bidirectional RNN as you're seeing here. But for a lot of natural language processing applications where you can get the entire sentence all at the same time, the standard BRNN algorithm is actually very effective.
