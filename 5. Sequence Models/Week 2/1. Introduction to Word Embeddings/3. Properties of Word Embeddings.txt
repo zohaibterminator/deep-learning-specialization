@@ -1,0 +1,21 @@
+One of the most fascinating properties of word embeddings is that they can also help with analogy reasoning. And while reasonable analogies may not be by itself the most important NLP application, they might also help convey a sense of what these word embeddings are doing, what these word embeddings can do.
+
+Let's say I pose a question, "man is to woman as king is to what?". You will say, "man is to woman as king is to queen". But is it possible to have an algorithm figure this out automatically? Let's say that you're using four dimensional vector e_man to represent the word "man", although usually you use somewhere between 50 to 1000 dimensional vector. One interesting property of these vectors is that if you take the vector e_man, and subtract the vector e_woman it, then, also take e_king and subtract e_queen from it, you will see that the difference between the embeddings of man and woman is almost the same as the difference between king and queen. So one way to carry out this analogy reasoning is, if the algorithm is asked, man is to woman as king is to what? What it can do is compute e_man- e_woman, and try to find a vector, try to find a word so that e_man-e_woman is close to e_king - embeddings of that new word. And it turns out that when queen is the word plugged in here, then the left hand side is close to the the right hand side.
+
+So let's formalize how you can turn this into an algorithm. In pictures, the word embeddings live in maybe a 300 dimensional space. And so the word man is represented as a point in the space, and the word woman is represented as a point in the space. And the word king is represented as another point, and the word queen is represented as another point. And what we pointed out really is that the vector difference between man and woman is very similar to the vector difference between king and queen. So in order to carry out this kind of analogical reasoning to figure out, man is to woman is king is to what, what you can do is try to find the word w, so that this equation holds true:
+
+e_man - e_woman = e_king - e_w
+
+So you want to find the word w that maximizes the similarity e_w compared to e_king - e_man + e_woman:
+
+arg max Sim(e_w, e_king - e_man + e_woman)
+
+And the remarkable thing is, this actually works. If you learn a set of word embeddings and find a word w that maximizes this type of similarity, you can actually get the exact right answer. Depending on the details of the task, but if you look at research papers, it's not uncommon for research papers to report anywhere from, say, 30% to 75% accuracy on analogy using tasks like these. Where you count an anology attempt as correct only if it guesses the exact word right. So only if, in this case, it picks out the word queen.
+
+The most commonly used similarity function is the cosine similarity function, whose formula is:
+
+Sim(u, v) = (u.T * v)/(||u||2 * ||v||2)
+
+Which is basically the inner product of u and v. You can also use the Euclidean Distance to calculate the similarity, or rather the disimilarity, because the larger the Euclidean distance, the bigger the difference is between the 2 vectors, unlike cosine similarity where a larger value indicates higher similarity.
+
+So one of the remarkable results about word embeddings is the generality of analogy relationships they can learn. So for example, it can learn that man is to woman as boy is to girl, because the vector difference between man and woman, similar to king and queen and boy and girl, is primarily just the gender. It can learn that Ottawa, which is the capital of Canada, that Ottawa is to Canada as Nairobi is to Kenya. So that's the city capital is to the name of the country. It can learn that big is to bigger as tall is to taller, and it can learn things like that. Yen is to Japan, since yen is the currency of Japan, as ruble is to Russia. And all of these things can be learned just by running a word embedding learning algorithm on the large text corpus and it can spot all of these patterns by itself.
